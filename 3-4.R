@@ -1,11 +1,18 @@
 library(car)
+
 Y <- matrix(c(91, 83, 77, 70, 63, 6, 11, 15, 20, 24, 2, 4, 5, 6, 8, 0.03, 0.10, 0.19, 0.31, 0.40, 0.36, 1.25, 2.48, 3.88, 5), ncol=5)
 len <- 5
-y <- abs(rnorm(len, 0, 1))
 
-t <- c(1, 2, 3, 4, 5)
+y <- matrix(0, nrow = 5, ncol = 5)
+for (i in 1:len)
+	y[i, ] <- abs(rnorm(5, 0, 1))
 
-plot(t, y)
+t <- c(1:len)
+
+fun<-function(X){
+x0<-c(100,0,0,0,0)
+	return (X*x0)
+}
 
 apinene_modele_prediction<-function(T,theta){
 	A<-matrix(c((-theta[1]-theta[2]),0,0,0,0,theta[1],0,0,0,0,theta[2],0,(-theta[3]-theta[4]),0,theta[5],0,0,theta[3],0,0,0,0,theta[4],0,-theta[5]), ncol=5,byrow=TRUE)
@@ -32,7 +39,7 @@ test <- function(t, theta1, theta2, theta3, theta4, theta5){
 	res <- apply(tmp, 1, sum)
 	print(res)
 	print(Y[t[length(t)], ])
-	return (sum(Y[t[length(t)], ] - res))
+	return (Y[t[length(t)], ] - res)
 }
 
 reaction <- function(T,theta1, theta2, theta3, theta4, theta5){
