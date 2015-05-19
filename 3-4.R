@@ -38,8 +38,8 @@ test <- function(t, theta1, theta2, theta3, theta4, theta5){
 	tmp <- t(tmp)
 	res <- apply(tmp, 1, sum)
 	print(res)
-	print(Y[t[length(t)], ])
-	return (Y[t[length(t)], ] - res)
+	print(Y[t, ])
+	return (Y[t, ] - res)
 }
 
 reaction <- function(T,theta1, theta2, theta3, theta4, theta5){
@@ -64,4 +64,4 @@ USPop <- data.frame(t, y)
 
 #res <- nls(y ~ test(t, theta), start = list(theta = theta0), data = USPop, trace = T)
 
-res <- nls(y ~ test(t, theta1, theta2, theta3, theta4, theta5), start = list(theta1 = 0.2, theta2 = 0.2, theta3 = 0.2, theta4 = 0.2, theta5 = 0.2), data = USPop, trace = TRUE)
+res <- nls(y ~ test(t, theta1, theta2, theta3, theta4, theta5), start = list(theta1 = 0.15, theta2 = 0.2, theta3 = 0.2, theta4 = 0.1, theta5 = 0.2), data = USPop, trace = TRUE)

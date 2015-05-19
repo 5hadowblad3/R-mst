@@ -1,4 +1,10 @@
+library("scatterplot3d")
+
 Y<-matrix(c(91,83,77,70,6,11,15,20,2,4,5,6,0.03,0.10,0.19,0.31,0.36,1.25,2.48,3.88),ncol=5)
+theta1 = seq(0.04, 0.08, 0.01)
+theta2 = seq(0.01, 0.05, 0.01)
+
+
 print(Y)
 
 erreur<-function(theta1,theta2,t){
@@ -14,23 +20,15 @@ erreur<-function(theta1,theta2,t){
 	return (sum)
 }
 
-min_erreur<-function(t){
-	min<-erreur(0.04,0.01,t)
-	min_theta1<-0.04
-	min_theta2<-0.01
-	for(theta1 in seq(0.04,0.08,0.01)){
-		for(theta2 in seq(0.01,0.05,0.01)){
-			if(min>erreur(theta1,theta2,t)){
-				min<-erreur(theta1,theta2,t)
-				min_theta1<-theta1
-				min_theta2<-theta2
-			}
-		}
-	}
-	theta<-c(min_theta1,min_theta2)
-	print(min)
-	print(theta)
-	return (theta)
+
+test <- function(t) {
+	res = matrix(0, nrow = 25, ncol = 1)
+	for(i in 0:4)
+		for(j in 1:5)
+		res[i * 5 + j] = erreur(theta[i + 1], theta[j], t)
+		
+	return (res)
 }
 
-#min_erreur(4)
+res = test(4)
+scatterplot3d(rep(theta1, each = 5), rep(theta2, 5), res, xlab = "theta1", ylab = "theta2", zlab = "erreur")
