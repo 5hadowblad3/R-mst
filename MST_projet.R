@@ -73,22 +73,12 @@ test <- function(t, theta1, theta2, theta3, theta4, theta5){
 #	tmp <- t(tmp)
 #	res <- apply(tmp, 1, sum)
 	print(res)
-	resx<-matrix(0,nrow=10,ncol=10)
-	for(i in 1:l){
-		resx[i,]<-apply(res,1,sum)
-	}
-	print("x")
-	print(resx)
-	x<-resx[1,]
-	print(x)
-	return (x)
+	
+	resx<-apply(res,1,sum)
+	return (resx)
 }
-resy<-matrix(0,nrow=10,ncol=10)
-for(i in 1:10){
-	resy[i,]<-apply(Y,1,sum)
-}
-y<-resy[1,]
-print(y)
+
+resy<-apply(Y,1,sum)
 
 theta0 <- c(0.2, 0.2, 0.2, 0.2, 0.2)
 USPop <- data.frame(t, y)
@@ -96,7 +86,7 @@ print(USPop)
 str(USPop)
 t=10
 #st <- coef(nls(log(y) ~ log(reaction(t, theta1,theta2,theta3,theta4,theta5)), USPop, start = list(theta1 = 0.2,theta2=0.2,theta3=0.2,theta4=0.2,theta5=0.2)))
-res <- nls(y ~ test(t,theta1,theta2,theta3,theta4,theta5), start = list(theta1 = 0.2,theta2=0.2,theta3=0.2,theta4=0.2,theta5=0.2),data=USPop,trace=T)
+res <- nls(resy ~ test(t,theta1,theta2,theta3,theta4,theta5), start = list(theta1 = 0.2,theta2=0.2,theta3=0.2,theta4=0.2,theta5=0.2),data=USPop,trace=T)
 #summary(pop)
 nls.control(maxiter = 50, tol = 1e-05, minFactor = 1/1024,
 		            printEval = FALSE, warnOnly = FALSE)
