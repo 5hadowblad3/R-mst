@@ -1,7 +1,5 @@
 read<-function() {
-	mytable<-read.table("projet_stat.txt", header=FALSE, sep=" ", dec=".", quote="\"")
-	t <- mytable[1,]
-	y <- mytable[-1, ]
-	return (list(t, y))
+	mytable <- read.table("projet_stat.txt", header = TRUE, col.name = c("ID", "t", "Y.1", "Y.2", "Y.3", "Y.4", "Y.5"), sep=" ")
+	return (mytable)
 }
 
