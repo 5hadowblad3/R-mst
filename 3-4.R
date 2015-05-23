@@ -51,7 +51,8 @@ test <- function(t, theta1, theta2, theta3, theta4, theta5){
 	l <- length(t)
 	res <- matrix(0, nrow = l, ncol = 5)
 	for(i in 1:l){
-		X<-expm(A*i)
+		T=t[i]
+		X<-expm(A*T)
 		tmp<-apply(X,1,fun)
 		tmp<-t(tmp)
 		res[i,]<-apply(tmp,1,sum)
@@ -70,3 +71,6 @@ res <- nls(y ~ test(t,theta1,theta2,theta3,theta4,theta5), start = list(theta1 =
 summary(res)
 #nls.control(maxiter = 50, tol = 1e-05, minFactor = 1/1024,
 #		            printEval = FALSE, warnOnly = FALSE)
+
+library("nlstools")
+confint2(res,"theta1","theta2","theta3","theta4","theta5",level=0.95)
