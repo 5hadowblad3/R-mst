@@ -57,7 +57,6 @@ test <- function(t, theta1, theta2, theta3, theta4, theta5){
 		tmp<-t(tmp)
 		res[i, ]<-apply(tmp,1,sum)
 	}
-	print(res[l, ])
 	temp <- c()
 	for(i in 1:5) {
 		temp <- c(temp, res[, i])
@@ -70,7 +69,7 @@ resy<-apply(Y,1,sum)
 theta0 <- c(0.2, 0.2, 0.2, 0.2, 0.2)
 USPop <- data.frame(t, y)
 
-res <- nls(y ~ test(t,theta1,theta2,theta3,theta4,theta5), start = list(theta1=0.1,theta2=0.2,theta3=0.2,theta4=0.2,theta5=0.2),data=USPop,trace=T, alg="port")
+res <- nls(y ~ test(t,theta1,theta2,theta3,theta4,theta5), start = list(theta1=0.1,theta2=0.2,theta3=0.2,theta4=0.2,theta5=0.2),data=USPop,trace=TRUE, alg="port")
 summary(res)
 #nls.control(maxiter = 50, tol = 1e-05, minFactor = 1/1024,
 #		            printEval = FALSE, warnOnly = FALSE)
@@ -86,3 +85,33 @@ IC4<-confint2(res,"theta4",level=0.95,method="asymptotic")
 print(IC4)
 IC5<-confint2(res,"theta5",level=0.95,method="asymptotic")
 print(IC5)
+
+theta<-c(0.05961,0.02880,0.02122,0.31620,0.04660)
+rescal<-apinene_modele_prediction(t,theta)
+rescalx1<-rescal[,1]
+rescalx2<-rescal[,2]
+rescalx3<-rescal[,3]
+rescalx4<-rescal[,4]
+rescalx5<-rescal[,5]
+resdony1<-Y[,2]
+resdony2<-Y[,3]
+resdony3<-Y[,4]
+resdony4<-Y[,5]
+resdony5<-Y[,6]
+
+par(mfrow=c(2,3))
+
+plot(t,rescalx1,type="l",col="red")
+lines(t,resdony1,col="green")
+
+plot(t,rescalx2,type="l",col="red")
+lines(t,resdony2,col="green")
+
+plot(t,rescalx3,type="l",col="red")
+lines(t,resdony3,col="green")
+
+plot(t,rescalx4,type="l",col="red")
+lines(t,resdony4,col="green")
+
+plot(t,rescalx5,type="l",col="red")
+lines(t,resdony5,col="green")
