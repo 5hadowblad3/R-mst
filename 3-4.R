@@ -10,15 +10,11 @@ x0<-c(100,0,0,0,0)
 Y = read()
 t = Y[, 1]
 
-y1 = t(Y[, 2])
-y2 = t(Y[, 3])
-y3 = t(Y[, 4])
-y4 = t(Y[, 5])
-y5 = t(Y[, 6])
-
+y = c()
 for (i in 2:6) {
 	y = c(y, t(Y[, i]))
 }
+
 
 apinene_modele_prediction<-function(T,theta){
 	A<-matrix(c((-theta[1]-theta[2]),0,0,0,0,theta[1],0,0,0,0,theta[2],0,(-theta[3]-theta[4]),0,theta[5],0,0,theta[3],0,0,0,0,theta[4],0,-theta[5]), ncol=5,byrow=TRUE)
@@ -68,9 +64,9 @@ test <- function(t, theta1, theta2, theta3, theta4, theta5){
 resy<-apply(Y,1,sum)
 
 theta0 <- c(0.2, 0.2, 0.2, 0.2, 0.2)
-USPop <- data.frame(t, y1, y2, y3, y4, y5)
+USPop <- data.frame(t, y)
 print(t)
-res <- nls( ~ test(t,theta1,theta2,theta3,theta4,theta5), start = list(theta1 = 0.2,theta2=0.2,theta3=0.2,theta4=0.2,theta5=0.2),data=USPop,trace=T)
+res <- nls(y ~ test(t,theta1,theta2,theta3,theta4,theta5), start = list(theta1 = 0.2,theta2=0.2,theta3=0.2,theta4=0.2,theta5=0.2),data=USPop,trace=T)
 summary(res)
 #nls.control(maxiter = 50, tol = 1e-05, minFactor = 1/1024,
 #		            printEval = FALSE, warnOnly = FALSE)
