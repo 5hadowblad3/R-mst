@@ -86,6 +86,14 @@ print(IC4)
 IC5<-confint2(res,"theta5",level=0.95,method="asymptotic")
 print(IC5)
 
+eten_rel<-c()
+eten_rel[1]<-(IC1[2]-IC1[1])/0.05961
+eten_rel[2]<-(IC2[2]-IC2[1])/0.02880
+eten_rel[3]<-(IC3[2]-IC3[1])/0.02122
+eten_rel[4]<-(IC4[2]-IC4[1])/0.31620
+eten_rel[5]<-(IC5[2]-IC5[1])/0.04660
+print(eten_rel)
+
 theta<-c(0.05961,0.02880,0.02122,0.31620,0.04660)
 rescal<-apinene_modele_prediction(t,theta)
 rescalx1<-rescal[,1]
