@@ -48,25 +48,28 @@ reaction <- function(T,theta1,theta2,theta3,theta4,theta5){
 
 test <- function(t, theta1, theta2, theta3, theta4, theta5){
 	A <- matrix(c((-theta1 - theta2), 0, 0, 0, 0, theta1, 0, 0, 0, 0, theta2, 0, (-theta3 - theta4), 0, theta5, 0, 0, theta3, 0, 0, 0, 0, theta4, 0, -theta5), ncol = 5, byrow = TRUE)
-	l <- length(t)
+	l <- length(t) / 5
 	res <- matrix(0, nrow = l, ncol = 5)
 	for(i in 1:l){
 		T=t[i]
 		X<-expm(A*T)
 		tmp<-apply(X,1,fun)
 		tmp<-t(tmp)
-		res[i,]<-apply(tmp,1,sum)
+		res[i, ]<-apply(tmp,1,sum)
 	}
 	print(res[l, ])
-	print(t)
-	return (res[l,])
+	temp <- c()
+	for(i in 1:5) {
+		temp <- c(temp, res[, i])
+	}
+	return (temp)
 }
 
 resy<-apply(Y,1,sum)
 
 theta0 <- c(0.2, 0.2, 0.2, 0.2, 0.2)
 USPop <- data.frame(t, y)
-print(t)
+
 res <- nls(y ~ test(t,theta1,theta2,theta3,theta4,theta5), start = list(theta1 = 0.2,theta2=0.2,theta3=0.2,theta4=0.2,theta5=0.2),data=USPop,trace=T)
 summary(res)
 #nls.control(maxiter = 50, tol = 1e-05, minFactor = 1/1024,
