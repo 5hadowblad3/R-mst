@@ -1,13 +1,23 @@
-library(car)
-
-Y <- read()
-t <- Y[, 1]
-Y <- Y[, -1]
-len <- nrow(Y)
+library(Matrix)
+library(expm)
 
 fun<-function(X){
 x0<-c(100,0,0,0,0)
 	return (X*x0)
+}
+
+
+Y = read()
+t = Y[, 1]
+
+y1 = t(Y[, 2])
+y2 = t(Y[, 3])
+y3 = t(Y[, 4])
+y4 = t(Y[, 5])
+y5 = t(Y[, 6])
+
+for (i in 2:6) {
+	y = c(y, t(Y[, i]))
 }
 
 apinene_modele_prediction<-function(T,theta){
@@ -21,9 +31,12 @@ apinene_modele_prediction<-function(T,theta){
 		tmp<-t(tmp)
 		res[i,]<-apply(tmp,1,sum)
 	}
-	print(res)
 	return (res)
 }
+
+
+library(car)
+
 
 reaction <- function(T,theta1,theta2,theta3,theta4,theta5){
 	theta<-c(theta1,theta2,theta3,theta4,theta5)
@@ -47,32 +60,17 @@ test <- function(t, theta1, theta2, theta3, theta4, theta5){
 		tmp<-t(tmp)
 		res[i,]<-apply(tmp,1,sum)
 	}
+	print(res[l, ])
+	print(t)
+	return (res[l,])
+}
 
-	print(res)
-	resx<-matrix(0,nrow=10,ncol=10)
-	for(i in 1:l){
-		resx[i,]<-apply(res,1,sum)
-	}
-	print("x")
-	print(resx)
-	x<-resx[1,]
-	print(x)
-	return (x)
-}
-resy<-matrix(0,nrow=10,ncol=10)
-for(i in 1:10){
-	resy[i,]<-apply(Y,1,sum)
-}
-y<-resy[1,]
-print(y)
+resy<-apply(Y,1,sum)
 
 theta0 <- c(0.2, 0.2, 0.2, 0.2, 0.2)
-USPop <- data.frame(t, Y)
-
-#st <- coef(nls(log(y) ~ log(reaction(t, theta)), USPop, start = list(theta = theta0)))
-#res <- nls(y ~ reaction(t, theta1, theta2, theta3, theta4, theta5), start = list(theta1 = 0.2, theta2 = 0.2, theta3 = 0.2, theta4 = 0.2, theta5 = 0.2), data = USPop, trace = T, algorithm = "plinear")
-#summary(pop) 
-
-#res <- nls(y ~ test(t, theta), start = list(theta = theta0), data = USPop, trace = T)
-
-res <- nls(Y ~ test(t, theta1, theta2, theta3, theta4, theta5), start = list(theta1 = 0.15, theta2 = 0.2, theta3 = 0.2, theta4 = 0.1, theta5 = 0.2), data = USPop, trace = TRUE, alg="plinear")
+USPop <- data.frame(t, y1, y2, y3, y4, y5)
+print(t)
+res <- nls( ~ test(t,theta1,theta2,theta3,theta4,theta5), start = list(theta1 = 0.2,theta2=0.2,theta3=0.2,theta4=0.2,theta5=0.2),data=USPop,trace=T)
+summary(res)
+#nls.control(maxiter = 50, tol = 1e-05, minFactor = 1/1024,
+#		            printEval = FALSE, warnOnly = FALSE)
