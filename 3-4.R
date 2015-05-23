@@ -101,17 +101,17 @@ resdony5<-Y[,6]
 
 par(mfrow=c(2,3))
 
-plot(t,rescalx1,type="l",col="red")
+plot(t,rescalx1,type="l",col="red",main="X1")
 lines(t,resdony1,col="green")
 
-plot(t,rescalx2,type="l",col="red")
+plot(t,rescalx2,type="l",col="red",main="X2")
 lines(t,resdony2,col="green")
 
-plot(t,rescalx3,type="l",col="red")
+plot(t,rescalx3,type="l",col="red",main="X3")
 lines(t,resdony3,col="green")
 
-plot(t,rescalx4,type="l",col="red")
+plot(t,rescalx4,type="l",col="red",main="X4")
 lines(t,resdony4,col="green")
 
-plot(t,rescalx5,type="l",col="red")
+plot(t,rescalx5,type="l",col="red",main="X5")
 lines(t,resdony5,col="green")
