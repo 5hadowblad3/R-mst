@@ -70,10 +70,10 @@ resy<-apply(Y,1,sum)
 theta0 <- c(0.2, 0.2, 0.2, 0.2, 0.2)
 USPop <- data.frame(t, y)
 
-res <- nls(y ~ test(t,theta1,theta2,theta3,theta4,theta5), start = list(theta1 = 0.2,theta2=0.2,theta3=0.2,theta4=0.2,theta5=0.2),data=USPop,trace=T)
+res <- nls(y ~ test(t,theta1,theta2,theta3,theta4,theta5), start = list(theta1=0.1,theta2=0.2,theta3=0.2,theta4=0.2,theta5=0.2),data=USPop,trace=T, alg="port")
 summary(res)
 #nls.control(maxiter = 50, tol = 1e-05, minFactor = 1/1024,
 #		            printEval = FALSE, warnOnly = FALSE)
 
-library("nlstools")
-confint2(res,"theta1","theta2","theta3","theta4","theta5",level=0.95)
+#library("nlstools")
+#confint2(res,"theta1","theta2","theta3","theta4","theta5",level=0.95)
