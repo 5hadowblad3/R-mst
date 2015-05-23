@@ -1,12 +1,7 @@
 #Q4
 #matrice de variance-covariance
-
-resdon<-matrix(0,ncol=5,nrow=51)
-for (i in 2:6) {
-	resdon[,i-1] = Y[, i]
-}
-matrice_cov<-cov(rescal,resdon,use="everything")
 print("la matrice de variance-covariance")
+matrice_cov<-cov(rescal,resdon,use="everything")
 print(matrice_cov)
 
 #les intervalles de confiance

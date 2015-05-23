@@ -1,34 +1,41 @@
+#Q3(c)
+#calculer les erreurs et tracer la graphe en modifiant les valeur theta1 et theta2
 library("scatterplot3d")
 
-Y<-matrix(c(91,83,77,70,6,11,15,20,2,4,5,6,0.03,0.10,0.19,0.31,0.36,1.25,2.48,3.88),ncol=5)
-theta1 = seq(0.04, 0.08, 0.01)
-theta2 = seq(0.01, 0.05, 0.01)
+Y = read()
+t = Y[, 1]
 
+y<-matrix(0,ncol=5,nrow=length(t))
+for (i in 2:6) {
+	y[,i-1] <- Y[, i]
+}
 
-print(Y)
+#modeliser les intervals des deux variables a vecteurs
+theta1 = seq(0.04, 0.08, 0.001)
+theta2 = seq(0.01, 0.05, 0.001)
 
-erreur<-function(theta1,theta2,t){
+erreur<-function(theta1,theta2){
 	theta<-c(theta1,theta2,0.0205,0.275,0.04)
-	T<-c(1:t)
-	X<-apinene_modele_prediction(T,theta)
+	X<-apinene_modele_prediction(t,theta)
 	sum<-0
+	T<-length(t)
 	for(j in 1:5){
-		for(i in 1:t){
-			sum<-sum+(Y[i,j]-X[i,j])^2
+		for(i in 1:T){
+			sum<-sum+(y[i,j]-X[i,j])^2
 		}
 	}
 	return (sum)
 }
 
 
-test <- function(t) {
-	res = matrix(0, nrow = 25, ncol = 1)
-	for(i in 0:4)
-		for(j in 1:5)
-		res[i * 5 + j] = erreur(theta[i + 1], theta[j], t)
+graph_erreur <- function() {
+	res <- matrix(0, nrow = 41*41, ncol = 1)
+	for(i in 0:40)
+		for(j in 1:41)
+		  res[i * 41 + j] = erreur(theta1[i + 1], theta2[j])
 		
 	return (res)
 }
 
-res = test(4)
-scatterplot3d(rep(theta1, each = 5), rep(theta2, 5), res, xlab = "theta1", ylab = "theta2", zlab = "erreur")
+res <- graph_erreur()
+scatterplot3d(rep(theta1, each = 41), rep(theta2, 41), res, xlab = "theta1", ylab = "theta2", zlab = "erreur")

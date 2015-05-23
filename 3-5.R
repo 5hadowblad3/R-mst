@@ -1,6 +1,10 @@
+#Q3(e)
+#tracer les donnes et la solution correspondant a theta(nls)
+#theta est l'estimateur qu'on obtient a la question precedente en utilisant nls
 theta<-c(0.05961,0.02880,0.02122,0.31620,0.04660)
 Y = read()
 
+#rescal est la solution
 rescal<-apinene_modele_prediction(t,theta)
 rescalx1<-rescal[,1]
 rescalx2<-rescal[,2]
