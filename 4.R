@@ -1,10 +1,11 @@
 #Q4
 #matrice de variance-covariance
 print("la matrice de variance-covariance")
-matrice_cov<-cov(rescal,resdon,use="everything")
+matrice_cov<-cov(rescal,rescal,use="everything")
 print(matrice_cov)
 
 #les intervalles de confiance
+#res est le resultat de la fonction nls dans la question precedente
 library("nlstools")
 print("les intervalles de confiance de theta")
 IC1<-confint2(res,"theta1",level=0.95,method="asymptotic")
